@@ -39,7 +39,7 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
     def Simulate(self, currentBoard):
         # 이미 Select 과정에서 내 수는 정해져 있으므로 상대방 차례
         currentPlayer = 0 if self.Identifier else 1
-        currentIdentifier = not self.Identifier  ####
+        currentIdentifier = not self.Identifier   ####
         currentState = BoardState()  #### 클라스 참조하는법.....? 맞는듯...
 
         currentBoard = currentBoard.Makemove()  #### c#의 "do while문"에서 처음 do문은 while조건을 거치지않고 실행된다는 점을 고려해여 while문 전에 미리 이렇게 실행해주었다.
