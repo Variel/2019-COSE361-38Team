@@ -41,7 +41,7 @@ class Game:
         # if not identifier.HasValue:
         #     return "Nobody"
         #### 윗 부분은 어떻게 처리해야할지 모르겠습니다. 생략가능한가요?
-        if identifier is True:  #### 기존 코드와 조금 다릅니다. 맞는지는 모르겠어요.
+        if identifier is True:   #### 기존 코드와 조금 다릅니다. 맞는지는 모르겠어요.
             return self._players[1].Name
         if identifier is False:
             return self._players[0].Name

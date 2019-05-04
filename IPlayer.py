@@ -1,5 +1,6 @@
 from abc import *
 
+
 class IPlayer(metaclass=ABCMeta):
     name = ""
     identifier = ""

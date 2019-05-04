@@ -338,3 +338,17 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/MonteCarlo/Properties
+/MonteCarlo/AiPlayer.cs
+/MonteCarlo/app.config
+/MonteCarlo/Board.cs
+/MonteCarlo/BoardState.cs
+/MonteCarlo/HumanPlayer.cs
+/MonteCarlo/Game.cs
+/MonteCarlo/IPlayer.cs
+/MonteCarlo/MonteCarlo.csproj
+/MonteCarlo/MonteCarlo.sln
+/MonteCarlo/Practice.cs
+/MonteCarlo/Program.cs
+/MonteCarlo/Readme.md
+/MonteCarlo/SimulationResult.cs

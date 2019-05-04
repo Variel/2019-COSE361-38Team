@@ -42,9 +42,9 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
         currentIdentifier = not self.Identifier  ####
         currentState = BoardState()  #### 클라스 참조하는법.....? 맞는듯...
 
-        currentBoard = currentBoard.Makemove()#### c#의 "do while문"에서 처음 do문은 while조건을 거치지않고 실행된다는 점을 고려해여 while문 전에 미리 이렇게 실행해주었다.
+        currentBoard = currentBoard.Makemove()  #### c#의 "do while문"에서 처음 do문은 while조건을 거치지않고 실행된다는 점을 고려해여 while문 전에 미리 이렇게 실행해주었다.
         currentPlayer = (currentPlayer + 1) % 2  # 플레이어 전환
-        currentIdentifier = currentPlayer == 1 # 플레이어 전환
+        currentIdentifier = currentPlayer == 1  # 플레이어 전환
 
         while not currentState.IsOver:  # 시뮬레이션이란 미니 게임을 랜덤으로, 정말 아무렇게나 돌리는 것이다
             check =[None]*7 # "check[move] = True" 할 수 있도록 미리 공간을 만들어놓음.
@@ -55,7 +55,7 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
                 if check == [True, True, True, True, True, True, True]:
                     return 0
                 move = random.randrange(0, 7) # 랜덤으로 다음 수 결정
-                check[move] = True # 체크 배열에 체크 해 둠
+                check[move] = True  # 체크 배열에 체크 해 둠
 
             currentBoard = currentBoard.Makemove(move, currentIdentifier)
 
