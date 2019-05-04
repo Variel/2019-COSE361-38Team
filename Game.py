@@ -38,7 +38,7 @@ class Game:
 
 
     def GetPlayerName(self, identifier):
-        if identifier is Nothing:
+        if identifier is None:
             return "Nobody"
         if identifier is True:
             return self._players[1].Name
