@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3cec390c-68e6-443b-97a6-71640bdfbb43</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>COSE361_38.py</StartupFile>
+    <StartupFile>AiPlayer.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
