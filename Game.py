@@ -1,5 +1,4 @@
-import Board
-import BoardState
+from Board import Board
 
 class Game:
     def __init__(self, player1, player2):
@@ -8,32 +7,34 @@ class Game:
 
     def StartLoop(self):
 
-        currentState = BoardState()
+        currentState = [False, None]
         currentPlayer = 0
         self.PrintState()
 
         while True:
             while True:
                 move = self._players[currentPlayer].NextMove(self._currentBoard)
-                if not self._currentBoard.IsValidMove(move):
-                    continue
-                break
-            self._currentBoard = self._currentBoard.MakeMove(move, self._players[currentPlayer].Identifier)
-            currentPlayer = (currentPlayer + 1) % 2
-            self.PrintState()
-            currentState = self._currentBoard.DetermineState()
-            if not currentState.IsOver:
-                continue
-            break
+                if self._currentBoard.is_valid_move(move):
+                    break;
 
-        print("Winner is " + self.GetPlayerName(currentState.WinnerIdentifier))
+            self._currentBoard = self._currentBoard.make_move(move, self._players[currentPlayer].Identifier)
+            currentPlayer = (currentPlayer + 1) % 2
+
+            self.PrintState()
+
+            currentState = self._currentBoard.determine_state()
+
+            if currentState[0]:
+                break
+
+        print("Winner is " + self.GetPlayerName(currentState[1]))
 
 
 
     def PrintState(self):
-        self._currentBoard.Print()
+        self._currentBoard.print()
         print("●: {}\n".format(self._players[0].Name) +
-              "○: {}\n".format(self._players[0].Name) +
+              "○: {}\n".format(self._players[1].Name) +
               "")
 
 
@@ -45,6 +46,3 @@ class Game:
         if identifier is False:
             return self._players[0].Name
         return "Nobody"
-
-
-

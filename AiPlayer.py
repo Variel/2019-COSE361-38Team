@@ -1,6 +1,5 @@
-import Board
 import random
-import BoardState
+from Board import Board
 from IPlayer import IPlayer
 
 class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
@@ -9,30 +8,31 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
         self.Name = name
         self.Identifier = identifier
 
-        # 각 경우의 수에 따른 휴리스틱 값을 담기 위한 리스트 [(col, sum), ...]
-        self.results = []  
-        self.MaxSimulation = 10000
-
+        self.MaxSimulation = 100
 
 
     def NextMove(self, currentBoard):
+        # 각 경우의 수에 따른 휴리스틱 값을 담기 위한 리스트 [(col, sum), ...]
+        results = []  
 
         for i in range(7):
             # i 열을 선택하는 경우의 수를 선택한 결과에 대한 휴리스틱 값을 담는다
-            self.results += self.SelectAndSimulate(currentBoard, i, self.MaxSimulation)
-            
-            # 결과 리스트를 리스트 요소의 Value 항목에 대한 내림차순으로 정렬하여 가장 첫번째 요소의 Column 항목을 반환한다.
-            # 즉, 가장 높은 휴리스틱 값을 가지는 경우의 수는 어떤 열을 선택한 것인지 반환
-            return sorted(self.results, reverse = True, key = lambda x: x[1])[0][0]
+            results.append(self.SelectAndSimulate(currentBoard, i, self.MaxSimulation))
+        
+        # print(results)
+        # input()
+        # 결과 리스트를 리스트 요소의 Value 항목에 대한 내림차순으로 정렬하여 가장 첫번째 요소의 Column 항목을 반환한다.
+        # 즉, 가장 높은 휴리스틱 값을 가지는 경우의 수는 어떤 열을 선택한 것인지 반환
+        return sorted(results, reverse = True, key = lambda x: x[1])[0][0]
 
 
 
     def SelectAndSimulate(self, currentBoard, col, limit):
 
         # 선택한 경우의 수가 둘 수 없는 수인 경우
-        if not currentBoard.IsValidMove(col):
+        if not currentBoard.is_valid_move(col):
             # 이 경우가 선택 되지 않도록 가장 작은 값으로 설정
-            return col, -2147483648
+            return (col, -2147483648)
 
         sum = 0
 
@@ -40,9 +40,9 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
         for i in range(limit):
             # 시뮬레이션을 돌리고 그 결과를 더한다.
             # 이 때 시뮬레이션 시작 상태는 AI가 이미 col 열에 수를 둔 상태를 시작 상태로 한다.
-            sum += self.Simulate(currentBoard.MakeMove(col, self.Identifier))
+            sum += self.Simulate(currentBoard.make_move(col, self.Identifier))
 
-        return col, sum
+        return (col, sum)
 
 
 
@@ -50,19 +50,15 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
         # 이미 Select 과정에서 내 수는 정해져 있으므로 상대방 차례로 초기화
         currentPlayer = 0 if self.Identifier else 1
         currentIdentifier = not self.Identifier
-        currentState = BoardState()  #### 클라스 참조하는법.....? 맞는듯...
+        currentState = [False, None];
 
-        currentBoard = currentBoard.Makemove()
-        currentPlayer = (currentPlayer + 1) % 2  # 플레이어 전환
-        currentIdentifier = currentPlayer == 1  # 플레이어 전환
-
-        while not currentState.IsOver:  # 시뮬레이션이란 미니 게임을 랜덤으로, 정말 아무렇게나 돌리는 것이다
+        while not currentState[0]:  # 시뮬레이션이란 미니 게임을 랜덤으로, 정말 아무렇게나 돌리는 것이다
             check = [None]*7 # "check[move] = True" 할 수 있도록 미리 공간을 만들어놓음.
 
             move = random.randrange(0, 7)
             check[move] = True
 
-            while not currentBoard.IsValidMove(move):
+            while not currentBoard.is_valid_move(move):
                 # 랜덤하게 뽑은 모든 경우의 수가 이동 불능일 때
                 if check == [True, True, True, True, True, True, True]:
                     # 비겼음
@@ -71,24 +67,24 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
                 move = random.randrange(0, 7) # 랜덤으로 다음 수 결정
                 check[move] = True  # 체크 배열에 체크 해 둠
 
-            currentBoard = currentBoard.Makemove(move, currentIdentifier)
+            currentBoard = currentBoard.make_move(move, currentIdentifier)
 
             currentPlayer = (currentPlayer + 1) % 2  # 플레이어 전환
             currentIdentifier = currentPlayer == 1  # 플레이어 전환
 
             # 시뮬레이션 게임의 현재 상태 확인
-            currentState = currentBoard.DetermineState()
+            currentState = currentBoard.determine_state()
 
         # 시뮬레이션 게임의 승자가 AiPlayer 개체 본인일 경우 2
-        if currentState.WinnerIdentifier is self.Identifier:  
+        if currentState[1] is self.Identifier:  
             return 2
 
         # 시뮬레이션 게임의 승자가 없을 경우 0
-        if currentState.WinnerIdentifier is None:
+        if currentState[1] is None:
             return 0
 
         # AiPlayer 개체 본인이 졌을 경우 -1
-        if currentState.WinnerIdentifier is not self.Identifier:
+        if currentState[1] is not self.Identifier:
             return -1
 
 
