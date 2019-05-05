@@ -5,12 +5,13 @@ d_col = [1,1,0,-1]
 
 class Board(object):
 
-    _board_data = [[]]
-    _is_first_movement = True
     
 
     def __init__(self, parent = None):
+
         self._board_data = [[None]*7,[None]*7,[None]*7,[None]*7,[None]*7,[None]*7]
+        self._is_first_movement = True
+
         if parent is not None:
             self._is_first_movement = parent._is_first_movement
             for i in range(6):

@@ -8,21 +8,22 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
         self.Name = name
         self.Identifier = identifier
 
-        # 각 경우의 수에 따른 휴리스틱 값을 담기 위한 리스트 [(col, sum), ...]
-        self.results = []  
-        self.MaxSimulation = 1000
-
+        self.MaxSimulation = 100
 
 
     def NextMove(self, currentBoard):
+        # 각 경우의 수에 따른 휴리스틱 값을 담기 위한 리스트 [(col, sum), ...]
+        results = []  
 
         for i in range(7):
             # i 열을 선택하는 경우의 수를 선택한 결과에 대한 휴리스틱 값을 담는다
-            self.results.append(self.SelectAndSimulate(currentBoard, i, self.MaxSimulation))
-            
+            results.append(self.SelectAndSimulate(currentBoard, i, self.MaxSimulation))
+        
+        # print(results)
+        # input()
         # 결과 리스트를 리스트 요소의 Value 항목에 대한 내림차순으로 정렬하여 가장 첫번째 요소의 Column 항목을 반환한다.
         # 즉, 가장 높은 휴리스틱 값을 가지는 경우의 수는 어떤 열을 선택한 것인지 반환
-        return sorted(self.results, reverse = True, key = lambda x: x[1])[0][0]
+        return sorted(results, reverse = True, key = lambda x: x[1])[0][0]
 
 
 
