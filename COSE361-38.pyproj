@@ -27,6 +27,7 @@
     </Compile>
     <Compile Include="COSE361_38.py" />
     <Compile Include="Game.py" />
+    <Compile Include="HumanPlayer.py" />
     <Compile Include="IPlayer.py" />
     <Compile Include="main.py">
       <SubType>Code</SubType>

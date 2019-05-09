@@ -9,7 +9,7 @@ class IPlayer(metaclass=ABCMeta):
         self.Identifier = identifier
 
     @abstractmethod
-    def NextMove(self, currentBoard):
+    def next_move(self, current_board):
         pass
 
 

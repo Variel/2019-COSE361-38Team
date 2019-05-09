@@ -1,15 +1,14 @@
 import sys
 
-d_row = [0,1,1,1]
-d_col = [1,1,0,-1]
+d_row = [0, 1, 1, 1]
+d_col = [1, 1, 0, -1]
+
 
 class Board(object):
 
-    
+    def __init__(self, parent=None):
 
-    def __init__(self, parent = None):
-
-        self._board_data = [[None]*7,[None]*7,[None]*7,[None]*7,[None]*7,[None]*7]
+        self._board_data = [[None] * 7, [None] * 7, [None] * 7, [None] * 7, [None] * 7, [None] * 7]
         self._is_first_movement = True
 
         if parent is not None:
@@ -17,7 +16,6 @@ class Board(object):
             for i in range(6):
                 for j in range(7):
                     self._board_data[i][j] = parent._board_data[i][j]
-
 
     def make_move(self, col, value):
         child = Board(self)
@@ -36,7 +34,6 @@ class Board(object):
 
         return child
 
-
     def is_valid_move(self, col):
         if self._is_first_movement and col == 3:
             return False
@@ -50,19 +47,18 @@ class Board(object):
 
         return is_valid
 
-    
     def print(self):
         print('  +--+--+--+--+--+--+--+')
         for i in range(6):
             sys.stdout.write('{} |'.format(6 - i))
 
             for j in range(7):
-                sys.stdout.write('○' if self._board_data[i][j] == True else '●' if self._board_data[i][j] == False else '  ')
+                sys.stdout.write(
+                    '○' if self._board_data[i][j] == True else '●' if self._board_data[i][j] == False else '  ')
                 sys.stdout.write('|')
 
             print('\n  +--+--+--+--+--+--+--+')
         print('    1  2  3  4  5  6  7')
-
 
     def determine_state(self):
         any_space = False
@@ -70,9 +66,8 @@ class Board(object):
         for i in range(6):
             for j in range(7):
                 for k in range(4):
-                    if self._board_data[i][j] != None \
-                        and self._is_four_in_a_row(i, j, k):
-
+                    if self._board_data[i][j] is not None \
+                            and self._is_four_in_a_row(i, j, k):
                         return (True, self._board_data[i][j])
 
         for i in range(6):
@@ -80,15 +75,14 @@ class Board(object):
 
         return (not any_space, None)
 
-
-    def _is_four_in_a_row(self, row, col, direction, depth = 1):
+    def _is_four_in_a_row(self, row, col, direction, depth=1):
 
         if depth == 4:
             return True
 
         val = self._board_data[row][col]
 
-        if val == None:
+        if val is None:
             return False
 
         row_to = row + d_row[direction]
