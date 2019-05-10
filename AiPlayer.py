@@ -1,13 +1,13 @@
 import random
 from Board import Board
-from IPlayer import IPlayer
+from Player import Player
 
 
-class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
+class AiPlayer(Player):
 
     def __init__(self, name, identifier):
-        self.Name = name
-        self.Identifier = identifier
+        self.name = name
+        self.identifier = identifier
 
         self.max_simulation = 100
 
@@ -38,14 +38,14 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
         for i in range(limit):
             # 시뮬레이션을 돌리고 그 결과를 더한다.
             # 이 때 시뮬레이션 시작 상태는 AI가 이미 col 열에 수를 둔 상태를 시작 상태로 한다.
-            sum += self.simulate(current_board.make_move(col, self.Identifier))
+            sum += self.simulate(current_board.make_move(col, self.identifier))
 
         return col, sum
 
     def simulate(self, current_board):
         # 이미 Select 과정에서 내 수는 정해져 있으므로 상대방 차례로 초기화
-        current_player = 0 if self.Identifier else 1
-        current_identifier = not self.Identifier
+        current_player = 0 if self.identifier else 1
+        current_identifier = not self.identifier
         current_state = [False, None];
 
         while not current_state[0]:  # 시뮬레이션이란 미니 게임을 랜덤으로, 정말 아무렇게나 돌리는 것이다
@@ -72,7 +72,7 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
             current_state = current_board.determine_state()
 
         # 시뮬레이션 게임의 승자가 AiPlayer 개체 본인일 경우 2
-        if current_state[1] is self.Identifier:
+        if current_state[1] is self.identifier:
             return 2
 
         # 시뮬레이션 게임의 승자가 없을 경우 0
@@ -80,5 +80,5 @@ class AiPlayer(IPlayer):  #### IPlayer를 여기에 쓰는게 맞나요?
             return 0
 
         # AiPlayer 개체 본인이 졌을 경우 -1
-        if current_state[1] is not self.Identifier:
+        if current_state[1] is not self.identifier:
             return -1

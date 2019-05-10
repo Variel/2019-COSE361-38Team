@@ -1,12 +1,10 @@
 from abc import *
 
-class IPlayer(metaclass=ABCMeta):
-    name = ""
-    identifier = ""
+class Player(metaclass=ABCMeta):
 
     def __init__(self, name, identifier):
-        self.Name = name
-        self.Identifier = identifier
+        self.name = name
+        self.identifier = identifier
 
     @abstractmethod
     def next_move(self, current_board):

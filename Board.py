@@ -27,7 +27,7 @@ class Board(object):
 
         if is_valid is False:
             print("둘 수 없는 곳입니다.")
-            raise NotImplementedError
+            raise RuntimeError
 
         return child
 

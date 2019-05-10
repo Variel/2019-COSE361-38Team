@@ -1,10 +1,10 @@
-from IPlayer import IPlayer
+from Player import Player
 
 
-class HumanPlayer(IPlayer):
+class HumanPlayer(Player):
     def __init__(self, name, identifier):
-        self.Name = name
-        self.Identifier = identifier
+        self.name = name
+        self.identifier = identifier
 
     def next_move(self, current_board):
         while True:
@@ -17,7 +17,7 @@ class HumanPlayer(IPlayer):
     def input_col(self):
         col = 0
         try:
-            col = int(input("{0}님, 다음 수를 입력하세요: ".format(self.Name)))
+            col = int(input("{0}님, 다음 수를 입력하세요: ".format(self.name)))
         except:
             print("정수를 입력하세요")
             self.input_col()
