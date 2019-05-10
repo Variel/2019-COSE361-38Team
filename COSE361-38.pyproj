@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3cec390c-68e6-443b-97a6-71640bdfbb43</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>COSE361_38.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -21,7 +21,17 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AiPlayer.py" />
+    <Compile Include="Board.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="COSE361_38.py" />
+    <Compile Include="Game.py" />
+    <Compile Include="HumanPlayer.py" />
+    <Compile Include="IPlayer.py" />
+    <Compile Include="main.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
