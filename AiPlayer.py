@@ -9,6 +9,7 @@ class AiPlayer(Player):
         self.name = name
         self.identifier = identifier
 
+        # 턴 당 시뮬레이션 횟수
         self.max_simulation = 100
 
     def next_move(self, current_board):
@@ -19,8 +20,7 @@ class AiPlayer(Player):
             # i 열을 선택하는 경우의 수를 선택한 결과에 대한 휴리스틱 값을 담는다
             results.append(self.select_and_simulate(current_board, i, self.max_simulation))
 
-        # print(results)
-        # input()
+        print(f'Heuristic Results: {list(map(lambda x: x[1], results))}')
         # 결과 리스트를 리스트 요소의 Value 항목에 대한 내림차순으로 정렬하여 가장 첫번째 요소의 Column 항목을 반환한다.
         # 즉, 가장 높은 휴리스틱 값을 가지는 경우의 수는 어떤 열을 선택한 것인지 반환
         return sorted(results, reverse=True, key=lambda x: x[1])[0][0]

@@ -25,7 +25,6 @@
     <Compile Include="Board.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="COSE361_38.py" />
     <Compile Include="Game.py" />
     <Compile Include="HumanPlayer.py" />
     <Compile Include="Player.py" />
