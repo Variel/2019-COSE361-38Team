@@ -10,7 +10,7 @@ class AiPlayer(Player):
         self.identifier = identifier
 
         # 턴 당 시뮬레이션 횟수
-        self.max_simulation = 100
+        self.max_simulation = 1000
 
     def next_move(self, current_board):
         # 각 경우의 수에 따른 휴리스틱 값을 담기 위한 리스트 [(col, sum), ...]

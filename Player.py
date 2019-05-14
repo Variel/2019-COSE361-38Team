@@ -9,12 +9,3 @@ class Player(metaclass=ABCMeta):
     @abstractmethod
     def next_move(self, current_board):
         pass
-
-
-
-
-
-
-
-
-
